@@ -1,0 +1,81 @@
+{
+	"name": "Content Management System",
+	"description": "Package description",
+	"autor": "Master IV",
+
+	"panelstatus": ["Aktiv", "Inaktiv", "Unregistered only", "Registered Only", "Keine Vererbung", "Admin Only"],
+	"layerstatus": ["Aktiv", "Inaktiv", "Unregistered only", "Registered Only", "Admin Only"],
+	"php_editor": {"none": "None" },
+	"html_editor": {"none": "None" },
+
+	"directories": {
+		"style/default/layer/": 777,
+		"style/default/panel/": 777
+	},
+
+	"rights": {
+		"script": {
+			"provider": "rights_scripts",
+			"caption": "Scripts",
+			"always": [],
+			"arguments": {}
+		}
+	},
+
+	"useroptions": {
+		"system": {
+			"caption": "Systemeinstellungen",
+			"items": {
+				"html_editor": { "type": "enum", "caption": "Html-Editor", "options": "html_editor" },
+				"php_editor": { "type": "enum", "caption": "PHP-Editor", "options": "php_editor" }
+			}
+		}
+	},
+
+	"options": {
+		"system": {
+			"caption": "Systemeinstellungen",
+			"items": {
+				"html_editor": { "type": "enum", "caption": "Html-Editor", "options": "html_editor", "value": "none" },
+				"php_editor": { "type": "enum", "caption": "PHP-Editor", "options": "php_editor", "value": "none" }
+			}
+		},
+
+		"page": {
+			"caption": "Seiteneinstellungen",
+			"items": {
+				"title": { "type": "text", "caption": "Seitentitel", "value": "IV CMS Page" },
+				"name": { "type": "text", "caption": "Name der Seite", "value": "IV Content Management System" },
+				"url": { "type": "text", "caption": "Url der Seite", "value": "http://iv-cms.de" },
+				"style": { "type": "glob", "pattern": "style/*", "caption": "Style", "value": "default" },
+				"startpage": { "type": "hidden", "caption": "Startseite", "value": 1 },
+				"force_rewrite": { "type": "checkbox", "caption": "Force URL Rewrite", "value": 0 }
+			}
+		}
+	},
+
+	"scripts": {
+		"php": {
+			"name": "PHP-Panel",
+			"script": "iv.php.script",
+			"editor": "iv.source.editor"
+		},
+		"html": {
+			"name": "HTML-Panel",
+			"script": "iv.html.script",
+			"editor": "iv.source.editor"
+		},
+		"menu": {
+			"name": "Menü-Panel",
+			"script": "iv.menu.script"
+		}
+	},
+
+	"moduls": [
+		{
+			"file": "iv.content",
+			"icon": "index.png",
+			"name": "Content Manager"
+		}
+	]
+}

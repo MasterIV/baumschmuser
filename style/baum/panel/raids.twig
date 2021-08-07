@@ -1,0 +1,65 @@
+{% if event %}
+	<h2>{{ event.dungeon }} - {{ event.start|date("d.m.Y") }} {{ event.zeit }}</h2>
+	{% if event.comment %}<p>{{ event.comment }}</p>{% endif %}
+
+	<table class="signups">
+		<tr>
+			<th width="50%">Tanks</th>
+			<th width="50%">Heiler</th>
+		</tr><tr>
+			<td><ul>
+				{% for s in signups %}
+					{% if s.rolle == 2 %}<li style="color: {{ colors[s.classid] }}">{{ s.name }}</li>{% endif %}
+				{% endfor %}
+			</ul></td>
+			<td><ul>
+				{% for s in signups %}
+					{% if s.rolle == 3 %}<li style="color: {{ colors[s.classid] }}">{{ s.name }}</li>{% endif %}
+				{% endfor %}
+			</ul></td>
+		</tr><tr>
+			<th>Meele</th>
+			<th>Ranged</th>
+		</tr><tr>
+			<td><ul>
+				{% for s in signups %}
+					{% if s.rolle == 0 %}<li style="color: {{ colors[s.classid] }}">{{ s.name }}</li>{% endif %}
+				{% endfor %}
+			</ul></td>
+			<td><ul>
+				{% for s in signups %}
+					{% if s.rolle == 1 %}<li style="color: {{ colors[s.classid] }}">{{ s.name }}</li>{% endif %}
+				{% endfor %}
+			</ul></td>
+		</tr>
+	</table>
+
+	<h3>Kommentare</h3>
+	<ul class="comments">
+	{% for s in signups %}
+		{% if s.comment %}<li>
+			<b style="color: {{ colors[s.classid] }}">{{ s.name }}:</b> {{ s.comment }}
+		</li>{% endif %}
+	{% endfor %}
+	</ul>
+
+	{% if form %}
+		<h2>Anmelden</h2>
+		{{ form|raw }}
+	{% endif %}
+{% else %}
+	{% for raid in raids %}
+		<a class="raid" href="{{ raid.url }}">
+			<div class="pic" style="background-image: url('img/icons/raids/{{ raid.destination }}.png')">
+				<img src="img/frame.gif">
+			</div>
+			<h3>{{ raid.dungeon }} - {{ raid.start|date("d.m.Y") }} {{ raid.zeit }}</h3>
+			<div class="signups">
+				<span><img src="img/icons/roles/0.png"> {{ raid.melee|number_format }}</span>
+				<span><img src="img/icons/roles/1.png"> {{ raid.ranged|number_format }}</span>
+				<span><img src="img/icons/roles/2.png"> {{ raid.tank|number_format }}</span>
+				<span><img src="img/icons/roles/3.png"> {{ raid.heal|number_format }}</span>
+			</div>
+		</a>
+	{% endfor %}
+{% endif %}

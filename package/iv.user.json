@@ -1,0 +1,48 @@
+{
+	"name": "Userverwaltung",
+	"description": "User management",
+	"autor": "Master IV",
+
+	"rights": {
+		"modul": {
+			"provider": "rights_modul",
+			"caption": "Module",
+			"arguments": {
+				"iv.user": {
+					"profil": "Profil bearbeiten",
+					"password": "Passwörter ändern",
+					"rights": "Rechte vergeben",
+					"edit": "User bearbeiten"
+				},
+				"iv.profilmanager": {
+					"delete": "Feld löschen",
+					"options": "Optionen Konfigurieren"
+				}
+			}
+		}
+	},
+
+	"moduls": [
+		{
+			"file": "iv.user",
+			"icon": "users.png",
+			"name": "Userverwaltung"
+		}, {
+			"file": "iv.groups",
+			"icon": "lock.png",
+			"name": "Rechteverwaltung"
+		}, {
+			"file": "iv.changepw",
+			"icon": "key.png",
+			"name": "Passwort ändern"
+		}, {
+			"file": "iv.profil",
+			"icon": "user_information.png",
+			"name": "Profil"
+		}, {
+			"file": "iv.profilmanager",
+			"icon": "user_monitor.png",
+			"name": "Profilverwaltung"
+		}
+	]
+}

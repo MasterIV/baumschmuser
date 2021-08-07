@@ -1,0 +1,92 @@
+<div class="popup_container" style="display: none">
+	<div class="modal-backdrop fade in" onclick="$('.popup_container').hide()"></div>
+	<div class="modal fade in">
+		<div class="modal-header">
+			<button type="button" class="close" onclick="$('.popup_container').hide()">&times;</button>
+			<h3>Layer erstellen</h3>
+		</div>
+		<div class="modal-body"></div>
+	</div>
+</div>
+
+<div id="create-form" style="display: none">{{ create|raw }}</div>
+
+{% macro printTree(root, current, modul_self, startpage, self ) %}
+	<ul>
+	{% for item in root.children %}
+		<li class="node">
+			<div class="btn-group draggable droppable" data-layer="{{ item.id }}"{%if item.id == current %} style="color: #252525; font-weight: bold;"{% endif %}>
+				<a class="btn handle" href="{{ modul_self }}&layeredit={{ item.id }}">
+					<span class="{%if item.id == current %}icon-folder-open{% else %}icon-folder-close{% endif %}"></span>
+					{{item.name}}
+				</a>
+
+				{% if startpage == item.id %}
+					<div class="btn" title="Startseite">
+						<span class="icon-home"></span>
+					</div>
+				{% endif %}
+
+				<a class="btn dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+				</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="index.php?page={{ item.id }}" target="_blank">Vorschau</a></li>
+					<li><a href="{{ self }}&frontpage={{ item.id }}">Startseite</a></li>
+					<li><a href="#" onclick="return editLayer( {{ item.id }} );">Layer bearbeiten</a></li>
+					<li><a href="#" onclick="return createLayer( {{ item.id }} );">Layer erstellen</a></li>
+					<li><a href="{{ modul_self }}&layerdelete={{ item.id }}" onclick="return confirm('wirklich löschen?');">Layer löschen</a></li>
+				</ul>
+
+			</div>
+			{% if item.children %}{{ _self.printTree( item, current, modul_self, startpage, self  ) }}{% endif %}
+		</li>
+	{% endfor %}
+	</ul>
+{% endmacro %}
+
+<noscript><div class="alert alert-error">Bitte Javascript aktivieren!</div></noscript>
+
+<div  class="tree">
+	<ul>
+		<li class="node">
+			<div class="btn-group droppable" data-layer="0"{%if 0 == current %} style="color: #252525; font-weight: bold;"{% endif %}>
+				<a class="btn" href="{{ MODUL_SELF }}">
+					<span class="{%if current == 0 %}icon-folder-open{% else %}icon-folder-close{% endif %}"></span>
+					System Root
+				</a>
+
+				<a href="#" title="Neuer Layer" onclick="return createLayer(0);" class="btn">
+					<span class="icon-plus"></span>
+				</a>
+			</div>
+			{{ _self.printTree( tree, current, MODUL_SELF, startpage, self  ) }}
+		</li>
+	</ul>
+</div>
+
+<br clear="all">
+
+<script type="text/javascript">
+	panelgroups = {{ panelgroups|json_encode|raw }};
+	moveurl = '{{ self|raw }}';
+
+	function createLayer( parent ) {
+		$('.popup_container .modal-body').html($('#create-form').html());
+		$('.popup_container select[name=parent]').val(parent);
+		$('.popup_container').show();
+
+		return false;
+	}
+
+	function editLayer( id ) {
+		$.get( '{{ MODUL_SELF }}&editform='+id, function( data ) {
+			$('.popup_container .modal-body').html(data);
+			$('.popup_container .btn[value="Zurück"]').remove();
+			$('.popup_container').show();
+		});
+
+		return false;
+	}
+</script>

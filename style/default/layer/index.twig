@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ options.page.name }}</title>
+		{% for file in js %}<script type="text/javascript" src="{{ file }}"></script>{% endfor %}
+		{% for file in css %}<link rel="stylesheet" href="{{ file }}" type="text/css" />{% endfor %}
+		<link rel="stylesheet" type="text/css" href="{{ base_dir }}/css/style.css" />
+	</head>
+
+	<body>
+		<div id="header">
+			<div class="navi">
+				<div class="navi-inhalt">
+					{{ header|raw }}
+				</div>
+			</div>
+
+			<div class="logo"></div>
+		</div>
+
+		<div class="contentbox">
+			{{ content|raw }}
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "MMO Raid Planner",
+  "description": "Package description",
+  "autor": "Master IV",
+
+  "scripts": {
+    "php": {
+      "name": "PHP-Panel",
+      "script": "iv.php.script",
+      "editor": "iv.source.editor"
+    }
+  },
+
+  "moduls": [
+    {
+      "file": "iv.content",
+      "icon": "index.png",
+      "name": "Content Manager"
+    }
+  ]
+}

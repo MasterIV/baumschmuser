@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>IV Entertainment Adminpanel</title>
+
+	{% for file in js %}
+		<script type="text/javascript" src="{{ file }}"></script>{% endfor %}
+	{% for file in css %}
+		<link rel="stylesheet" href="{{ file }}" type="text/css" />{% endfor %}
+	<link rel="stylesheet" href="{{ base_dir }}/custom.css" type="text/css"/>
+</head>
+
+<body>
+
+<nav id="slide-menu">
+	<ul>
+		{% for id, point in menu %}
+			<li><a href="{{ IV_SELF }}category={{ id }}">{{ point.name }}</a></li>
+
+			{% for subpoint in point.children %}
+				<li class="sub">
+					<a href="{{ IV_SELF }}modul={{ subpoint.file }}" class="menulink">
+						<span class="icon-chevron-right icon-white" aria-hidden="true"></span>
+						{{ subpoint.name }}
+					</a>
+				</li>
+			{% endfor %}
+		{% endfor %}
+
+		<li><a href="{{ IV_SELF }}logout">Logout</a></li>
+		<li><a onclick="toggleMenu()"><span
+						class="icon-chevron-left icon-white" aria-hidden="true"></span>Schließen</a></li>
+	</ul>
+</nav>
+
+<div class="navbar navbar-static-top navbar-inverse">
+	<div class="navbar-inner">
+		<a href="{{ IV_SELF }}logout" class="btn btn-inverse pull-right hidden-phone">Logout</a>
+		<a class="brand">IV Entertainment Adminpanel</a>
+		<a class="visible-phone btn btn-inverse pull-right" onclick="toggleMenu();"><span
+					class="icon-align-justify icon-white" aria-hidden="true"></span></a>
+		<ul class="nav hidden-phone">
+			{% for id, point in menu %}
+				<li class="dropdown">
+					<a href="{{ IV_SELF }}category={{ id }}">{{ point.name }}</a>
+					<div class="spacer"></div>
+
+					<ul class="dropdown-menu">
+						{% for subpoint in point.children %}
+							<li>
+								<a href="{{ IV_SELF }}modul={{ subpoint.file }}"
+								   class="menulink">{{ subpoint.name }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+<div id="content">
+	<noscript>
+		<div class="alert alert-error">Bitte Javascript aktivieren!</div>
+	</noscript>
+
+	{% if error %}
+		<pre class="alert alert-error">{{ error }}</pre>
+	{% endif %}
+
+	{% if success %}
+		<pre class="alert alert-success">{{ success }}</pre>
+	{% endif %}
+
+	{{ content|raw }}
+</div>
+<script type="text/javascript">
+	var menu = false;
+	function toggleMenu() {
+		$('#slide-menu').css('left', ( menu = !menu ) ? '0px' : '-284px');
+	}
+</script>
+</body>
+</html>

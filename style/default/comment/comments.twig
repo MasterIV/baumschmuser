@@ -1,0 +1,17 @@
+<div class="media">
+{% for comment in comments %}
+	<div style="clear:both;">
+		<a class="pull-left" href="#c-{{ comment.id }}">
+			<img class="media-object" src="http://www.gravatar.com/avatar/{{ comment.user.emailhash }}" alt="...">
+			{{ comment.user.name }}
+		</a>
+		<div class="media-body" id="c-{{ comment.id }}">
+			<p>{{ comment.text }}</p>
+			<p class="text-muted">verfasst von {{ comment.user.name }} am {{ comment.date|date("d.m.Y H:i") }} Uhr</p>
+		</div>
+	</div>
+{% endfor %}
+{% for page in pagination %}
+	<a href="{{ page.url }}" class="btn {% if page.isActive %}btn-default{% else %}btn-primary{% endif %}">{{ page.page }}</a>
+{% endfor %}
+</div>

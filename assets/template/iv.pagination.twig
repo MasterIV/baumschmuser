@@ -1,0 +1,27 @@
+{% if pages > 15 %}
+	<div class="input-prepend">
+		<a href="{{ links[1] }}" class="btn"> &lt;&lt; </a>
+		<a href="{{ links[current] }}" class="btn"> &lt; </a>
+
+		{% for key, link in links %}
+			{% if key > current - 3 and key < current + 5 %}
+				<a href="{{ link }}" class="btn{% if current+1 == key %} active{% endif %}"> {{ key }} </a>
+			{% endif %}
+		{% endfor %}
+
+		<a href="{{ links[current+2] }}" class="btn"> &gt; </a>
+		<a href="{{ links[pages] }}" class="btn"> &gt;&gt; </a>
+
+		<select class="input-mini" onchange="window.location.href = this.options[this.selectedIndex].value;">
+			{% for key, link in links %}
+				<option value="{{ link }}"{% if current+1 == key %} selected{% endif %}>{{ key }}</option>
+			{% endfor %}
+		</select>
+	</div>
+{% else %}
+	<div class="btn-group">
+		{% for key, link in links %}
+			<a href="{{ link }}" class="btn{% if current+1 == key %} active{% endif %}"> {{ key }} </a>
+		{% endfor %}
+	</div>
+{% endif %}

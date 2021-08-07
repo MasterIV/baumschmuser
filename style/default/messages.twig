@@ -1,0 +1,100 @@
+<script type="text/javascript">
+	function toggleMessage( ele ) {
+		$( '.msgbody').hide();
+		$( ele ).parent().parent().next().show();
+		return false;
+	}
+</script>
+
+<h1>Posteingang</h1>
+
+<form action="{{ PAGE_SELF }}" method="post">
+	<div style="margin: 25px;">
+		Funktionen:
+		<input type="submit" name="delete" value="Löschen">
+	</div>
+
+	<div style="margin: 25px;">
+		<table class="table">
+			<tr>
+				<th width="20">&nbsp;</th>
+				<th>Betreff</th>
+				<th>Absender</th>
+				<th>Empfangsdatum</th>
+			</tr>
+
+			{% for message in incoming %}
+				<tr>
+					<td><input type="checkbox" name="messages[]" value="{{ message.id }}"></td>
+					<td><a href="#" onclick="return toggleMessage(this);">{{ message.subject }}</a></td>
+					<td><a href="user/{{ message.from }}">{{ message.from_name }}</a></td>
+					<td>{{ message.date|dateformat("d.m.Y - H:i") }}</td>
+				</tr>
+
+				<tr style="display :none" class="msgbody">
+					<td colspan="4">
+						<div class="simpleborder">
+							<p>{{ message.content }}</p>
+							<p style="text-align: right"><a class="button" href="#">Antworten</a></p></div>
+
+					</td>
+				</tr>
+			{% endfor %}
+
+		</table>
+	</div>
+
+	<div style="margin: 25px;">
+		Funktionen:
+		<input type="submit" name="delete" value="Löschen">
+	</div>
+</form>
+
+<h1>Nachricht verfassen</h1>
+
+{{ form|raw }}
+
+<h1>Postausgang</h1>
+
+<form action="{{ PAGE_SELF }}" method="post">
+	<div style="margin: 25px;">
+		Funktionen:
+		<input type="submit" name="delete" value="Löschen">
+	</div>
+
+	<div style="margin: 25px;">
+		<table class="table">
+			<tr>
+				<th width="20">&nbsp;</th>
+				<th>Betreff</th>
+				<th>Absender</th>
+				<th>Empfangsdatum</th>
+			</tr>
+
+			{% for message in outgoing %}
+				<tr>
+					<td><input type="checkbox" name="messages[]" value="{{ message.id }}"></td>
+					<td><a href="#" onclick="return toggleMessage(this);">{{ message.subject }}</a></td>
+					<td><a href="user/{{ message.from }}">{{ message.from_name }}</a></td>
+					<td>{{ message.date|dateformat("d.m.Y - H:i") }}</td>
+				</tr>
+
+				<tr style="display :none" class="msgbody">
+					<td colspan="4">
+						<div class="simpleborder">
+							<p>{{ message.content }}</p>
+							<p style="text-align: right"><a class="button" href="#">Antworten</a></p></div>
+
+					</td>
+				</tr>
+			{% endfor %}
+
+		</table>
+	</div>
+
+	<div style="margin: 25px;">
+		Funktionen:
+		<input type="submit" name="delete" value="Löschen">
+	</div>
+</form>
+

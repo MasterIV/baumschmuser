@@ -1,0 +1,70 @@
+{
+	"name": "Systemkern",
+	"description": "Der Kern des IV Entertainment Frameworks. Enthält alle wichtigen Bibliotheken sowie das Grundgerüst für das Adminpanel.",
+	"autor": "Master IV",
+
+	"js": [
+		"assets/js/jquery.min.js",
+		"assets/js/jquery-ui.min.js",
+		"assets/js/bootstrap.min.js",
+		"assets/js/system.js"
+	],
+
+	"css": [
+		"assets/css/jquery-ui.min.css",
+		"assets/css/bootstrap.min.css",
+		"assets/css/bootstrap-responsive.min.css",
+		"assets/css/system.css"
+	],
+
+
+	"options": {
+		"system": {
+			"caption": "Systemeinstellungen",
+			"items": {
+				"theme": {
+					"type": "glob",
+					"pattern": "theme/*",
+					"caption": "Admin-Theme",
+					"value": "bootstrap"
+				}
+			}
+		}
+	},
+
+	"directories": {
+		"cache/": 777,
+		"upload/": 777
+	},
+
+	"rights": {
+		"modul": {
+			"provider": "rights_modul",
+			"caption": "Module",
+			"always": [ "iv.nav" ],
+			"arguments": {}
+		}
+	},
+
+	"enum": {
+		"input_type": [ "text", "select", "date", "textarea", "checkbox" ],
+		"gender": [ "Männlich", "Weiblich" ]
+	},
+
+	"template": {
+		"filter": [
+			{ "name" : "dateformat", "callback": ["template_filter_date","format"] },
+			{ "name" : "datefancy", "callback": ["template_filter_date","fancy"] },
+			{ "name" : "markdown", "callback": ["template_filter_markdown", "transform"] },
+			{ "name" : "bbcode", "callback": ["template_filter_bbcode","bbcode2html"] }
+		]
+	},
+
+	"moduls": [
+		{
+			"file": "iv.options",
+			"icon": "wrench.png",
+			"name": "Optionen"
+		}
+	]
+}

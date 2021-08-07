@@ -1,0 +1,25 @@
+<h4>{{ name }}</h4>
+
+<table class="table table-stripped">
+	<tr>
+		<td>Version:</td>
+		<td>{{ version }}</td>
+	</tr><tr>
+		<td>Autor:</td>
+		<td>{{ autor }}</td>
+	</tr><tr>
+		<td>Installationen:</td>
+		<td>{{ installations }}</td>
+	</tr><tr>
+		<td>Aktuallisierungen:</td>
+		<td>{{ updates }}</td>
+	</tr><tr>
+		<td>Beschreibung:</td>
+		<td>{{ description }}</td>
+	</tr>
+</table>
+
+<p align="center">
+	<a href="{{ MODUL_SELF }}&action=publish&edit={{ id }}" class="btn btn-primary" onclick="return confirm('Wirklich veröffentlichen?');">Veröffentlichen</a>
+	<a href="{{ MODUL_SELF }}" class="btn">Zurück</a>
+</p>

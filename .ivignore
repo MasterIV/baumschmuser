@@ -1,0 +1,16 @@
+svn
+./nbproject
+./.idea
+./package/
+./cache/
+./install/
+./upload/
+Thumbs.db
+.config.php
+.git
+README.md
+./setup.php
+./check.php
+debug.
+./downloads/
+.example.php

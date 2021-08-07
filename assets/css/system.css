@@ -1,0 +1,132 @@
+.popup_container {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
+
+.popup_background {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 15;
+	background-color: rgba( 0, 0, 0, 0.5 );
+}
+
+.popup_content {
+	position: relative;
+	margin: 10% auto;
+	z-index: 20;
+	overflow: auto;
+	max-height: 80%
+}
+
+.nav-wrapper {
+	margin: auto;
+	text-align: left;
+	padding: 0;
+}
+.icon {
+	box-sizing: border-box;
+	display: inline-block;
+	width: 19.6%;
+	min-width: 120px;
+	text-align: center;
+	padding: 8px 0;
+	margin: 0;
+	transition: all 0.6s;
+}
+
+.icon:hover {
+	background-color: #e9f4fc;
+	border-radius: 6px;
+	text-decoration: none;
+	color: #2a78a2;
+}
+
+.icon:active img {
+	margin: 13px 0px 7px 0px;
+}
+
+.icon img {
+	border: none;
+	margin: 10px;
+}
+
+.controls > .btn {
+	margin-right: 10px;
+}
+
+
+/* ---------------------------------------------------------------- */
+
+
+.tree li.node {
+	margin: 0px 0;
+	list-style-type: none;
+	position: relative;
+	padding: 10px 0px 0px 5px;
+}
+
+.tree li.node::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	right: auto;
+	left: -10px;
+	border-left: 1px solid #ccc;
+	bottom: 50px;
+	z-index: 1;
+}
+.tree li.node::after{
+	content: '';
+	position: absolute;
+	top: 25px;
+	width: 15px;
+	height: 20px;
+	right: auto;
+	left: -10px;
+	border-top: 1px solid #ccc;
+	z-index: 1;
+}
+
+.tree .btn-group > a {
+	z-index: 1;
+}
+
+/*Remove connectors before root*/
+.tree > ul > li.node::before, .tree > ul > li.node::after{
+	border: 0;
+}
+/*Remove connectors after last child*/
+.tree li.node:last-child::before{
+	height: 25px;
+}
+
+.tree-hover > .btn {
+	color: #ffffff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #49afcd;
+	background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+	background-repeat: repeat-x;
+	border-color: #2f96b4 #2f96b4 #1f6377;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 900px) {
+	.icon {
+		width: 32.7%;
+	}
+}
+
+@media (max-width: 500px) {
+	.icon {
+		width: 49.3%;
+	}
+}

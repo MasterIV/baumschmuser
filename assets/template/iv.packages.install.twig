@@ -1,0 +1,68 @@
+<div class="box">
+	<h2>
+		<button class="pull-right btn" style="margin-top: 4px;" onclick="$('#add_server').show();">Server hinzufügen</button>
+		Pakete
+	</h2>
+	<div><div id="packagelist"><noscript>Bitte Javascript aktivieren!</noscript></div></div>
+</div>
+
+<div class="popup_container" id="add_server" style="display: none">
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal fade in">
+		<div class="modal-header">
+			<button type="button" class="close"  onclick="$('#add_server').hide();" aria-hidden="true">&times;</button>
+			<h3>Server hinzufügen</h3>
+		</div>
+
+		<div class="modal-body">
+			{{ serverform|raw }}
+		</div>
+	</div>
+</div>
+
+<script>
+	var update = new UpdateManager(
+		{{ MODUL_SELF|json_encode|raw }},
+		{{ sources|json_encode|raw }},
+		{{ packages|json_encode|raw }}
+	);
+</script>
+
+{% for source in sources %}
+	<script src="{{ source.url }}?interface=iv.exchange&serverid={{ source.id }}"></script>
+{% endfor %}
+
+<script>update.displayPackages($( "#packagelist" ));</script>
+
+<div class="popup_container" id="progressmodal" style="display: none">
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal fade in">
+		<div class="modal-header">
+			<h3>Installiere Paket</h3>
+		</div>
+
+		<div class="modal-body">
+			<div id="totalmodal" style="display: none;">
+				<p>Total Progress</p>
+
+				<div class="progress progress-striped active">
+					<div id="totalpgrs" class="bar" style="width: 0%; transition: width 0.3s ease 0s;"></div>
+				</div>
+			</div>
+
+			<p>Current Package</p>
+
+			<div class="progress progress-striped active">
+				<div id="pkgpgrs" class="bar" style="width: 0%; transition: width 0.1s ease 0s;"></div>
+			</div>
+
+			<p>Output Log</p>
+
+			<pre class="well" style="height: 100px; overflow: auto; font-size: 10px;" id="log"><div></div></pre>
+		</div>
+
+		<div class="modal-footer">
+			<button id="migbtn" class="btn btn-danger" onclick="location.reload();">Cancel</button>
+		</div>
+	</div>
+</div>

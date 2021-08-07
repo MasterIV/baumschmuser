@@ -1,0 +1,26 @@
+{
+	"name": "Community Tools",
+	"description": "A set of extensions for the Frontend to build a small Community Page.",
+	"autor": "Master IV",
+
+	"scripts": {
+		"login": {
+			"name": "Login-Panel",
+			"script": "iv.login.script"
+		},
+		"registration": {
+			"name": "Registration-Panel",
+			"script": "iv.registration.script",
+			"editor": "iv.registration.editor"
+		},
+		"avatar": {
+			"name": "Avatar Upload",
+			"script": "iv.avatar.script",
+			"editor": "iv.avatar.editor"
+		},
+		"changepw": {
+			"name": "Passwort ändern",
+			"script": "iv.changepw.script"
+		}
+	}
+}

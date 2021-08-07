@@ -1,0 +1,5 @@
+<div class="button-group">
+	{% for point in menu %}
+		<div {% if current == point.id %}class="active"{% endif %}><a href="{{ point.link }}">{{ point.name }}</a></div>
+	{% endfor %}
+</div>

@@ -1,0 +1,28 @@
+<form action="{{ action }}" name="editor" method="post">
+	<script type="text/javascript" src="assets/codemirror/lib/codemirror.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/xml/xml.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/javascript/javascript.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/css/css.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/clike/clike.js"></script>
+	<script type="text/javascript" src="assets/codemirror/mode/php/php.js"></script>
+	<link rel="stylesheet" href="assets/codemirror/lib/codemirror.css">
+
+	<script language="javascript" type="text/javascript">
+		window.onload = function() {
+			CodeMirror.fromTextArea(document.getElementById("source"), {
+				lineNumbers: true,
+				mode: {% if syntax == 'html' %}'htmlmixed'{% else %}'text/x-php'{% endif %},
+				tabSize:4,
+				indentWithTabs:true,
+				autofocus:true
+			});
+		};
+	</script>
+
+	<textarea style=" width:100%;" rows="30" name="source" id="source">{{ content }}</textarea>
+	<p align="center" style="border-top:1px solid #ddd; padding-top:15px;">
+		<input type="submit" value="Speichern" class="btn btn-primary">
+		<a href="{{ cancel }}" class="btn">Abbrechen</a>
+	</p>
+</form>

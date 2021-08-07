@@ -1,0 +1,108 @@
+<ul class="breadcrumb">
+	<li><a href="{{ self }}">Forum</a></li>
+	{% for board in breadcrumb %}
+	<li><span class="divider">/</span> <a href="{{ self }}&board={{ board.id }}">{{ board.name }}</a></li>
+	{% endfor %}
+</ul>
+
+{% for board in boards %}
+	{% if board.subs %}
+		<div class="panel panel-forum">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<td colspan="2">{{ board.name }}</td>
+					<td width="12%" class="hidden-xs">Themen</td>
+					<td width="12%" class="hidden-xs">Beiträge</td>
+					<td width="32%" class="hidden-xs">Letzter Beitrag</td>
+				</tr>
+				</thead>
+				<tbody>
+				{% for sub in board.subs %}
+					<tr>
+						<td width="30">
+							<i style="display:inline-block; vertical-align: middle; width: 20px; height: 20px; background-color: {% if sub.new %}#0044cc{% else %}#999999{% endif %};"></i>
+						</td><td>
+							<a href="{{ self }}&board={{ sub.id }}">
+								<div class="media-body">
+									<h4 class="media-heading">{{ sub.name }}</h4>
+									{{ sub.description }}
+								</div>
+							</a>
+						</td>
+						<td class="hidden-xs"><span class="badge">{{ sub.count_threads }}</span></td>
+						<td class="hidden-xs"><span class="badge">{{ sub.count_posts }}</span></td>
+						<td class="hidden-xs">
+							{% if sub.last_post %}
+							<a href="{{ self }}&thread={{ sub.last_thread }}">{{ sub.last_thread_title }}</a><br>
+							<span class="small">{{ sub.last_post_date|datefancy }} von {{ sub.last_post_user_name }}</span>
+							{% else %}
+							<span class="disabled">keine Beiträge</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{%  endif %}
+
+	{% if board.writable %}
+		<div>
+			<a class="btn" href="{{ self }}&create={{ board.id }}">Neues Thema</a>
+		</div>
+	{% endif %}
+
+	{% if board.threads %}
+		<div class="panel panel-forum">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<td colspan="2">Thread</td>
+					<td width="20%" class="hidden-xs">Antworten</td>
+					<td width="20%" class="hidden-xs">Letzte Aktivität</td>
+				</tr>
+				</thead>
+				<tbody>
+
+			{% for thread in board.threads %}
+				<tr>
+					<td width="30">
+						<i style="display:inline-block; vertical-align: middle; width: 20px; height: 20px; background-color: {% if thread.new %}#0044cc{% else %}#999999{% endif %};"></i>
+					</td><td>
+						<a href="{{ self }}&thread={{ thread.id }}">
+							<div class="media-body">
+								<h4 class="media-heading">{{ thread.title }}</h4>
+							</div>
+						</a>
+					</td>
+					<td class="hidden-xs">
+						<span class="badge">{{ thread.count_posts }}</span>
+					</td>
+					<td class="hidden-xs">
+						{{ thread.last_post_date|date }} von {{ thread.last_post_user_name }}
+					</td>
+				</tr>
+			{% endfor %}
+
+				</tbody>
+			</table>
+
+			<!-- <ul class="pagination pull-right">
+				<li><a href="#">«</a></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">»</a></li>
+			</ul> -->
+		</div>
+	{% endif %}
+
+	{% if board.writable %}
+		<div>
+			<a class="btn" href="{{ self }}&create={{ board.id }}">Neues Thema</a>
+		</div>
+	{% endif %}
+{% else %}
+	<div class="error">Es wurden keine Foren gefunden!</div>
+{% endfor %}

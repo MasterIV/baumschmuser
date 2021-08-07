@@ -1,0 +1,25 @@
+<noscript><div class="alert alert-error">Bitte Javascript aktivieren!</div></noscript>
+
+<p id="info" align="center"></p>
+
+<p align="center">
+    <div class="progress progress-striped active" style="width: 80%; margin: 20px auto">
+        <div class="bar" id="migbar" style="width: 0%;"></div>
+    </div>
+</p>
+
+<script type="text/javascript">
+	var migrations = new MigrationManager(
+		'{{ MODUL_SELF }}',
+		{{ pending|json_encode|raw }},
+		$('#migbar'),
+		$('#info')
+	);
+</script>
+
+<p align="center">
+    <button onclick="migrations.installAll();" class="btn btn-info" id="migbtn">
+        Wartenden Migrationen ausführen
+    </button>
+</p>
+

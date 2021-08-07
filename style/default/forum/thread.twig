@@ -1,0 +1,123 @@
+<ol class="breadcrumb">
+	<li><a href="{{ self }}">Forum</a></li>
+
+	{% for board in breadcrumb %}
+		<li><span class="divider">/</span> <a href="{{ self }}&board={{ board.id }}">{{ board.name }}</a></li>
+	{% endfor %}
+
+	<li><span class="divider">/</span> <a href="{{ self }}&thread={{ thread.id }}">{{ thread.title }}</a></li>
+</ol>
+
+<div class="well">
+	{% if moderate %}
+		<div class="pull-right">
+			<div class="btn-group">
+				<button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle" type="button">
+					<i class="icon-cog"></i>
+				</button>
+				<ul role="menu" class="dropdown-menu pull-right">
+					<li><a href="{{ self }}&moderate={{ thread.id }}&delete">Delete</a></li>
+					{% if thread.closed %}
+						<li><a href="{{ self }}&moderate={{ thread.id }}&reopen">Reopen</a></li>
+					{% else %}
+						<li><a href="{{ self }}&moderate={{ thread.id }}&close">Close</a></li>
+					{% endif %}
+					<li><a href="{{ self }}&moderate={{ thread.id }}&move">Move</a></li>
+					<li><a href="#" onclick="$('#rename').modal('show'); return false;">Rename</a></li>
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+
+	<h3>
+		{{ thread.title }}
+		<br>
+		<small>verfasst von {{ author.name }} am {{ thread.create_date }}</small>
+	</h3>
+</div>
+
+<div id="rename" class="modal hide fade">
+	<form class="form-horizontal" action="{{ self }}&moderate={{ thread.id }}" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Rename Forum</h3>
+	</div>
+	<div class="modal-body">
+		<div class="control-group">
+			<label class="control-label" for="inputTitle">Title</label>
+			<div class="controls">
+				<input type="text" id="inputTitle" value="{{ thread.title }}" name="rename">
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<input type="submit" class="btn btn-primary" value="Save changes">
+		<a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+	</div>
+	</form>
+</div>
+
+{% if reply or pagination %}
+<div class="well" style="text-align: left">
+		{% if reply %}
+			<div class="pull-right">
+				<a class="btn" href="{{ self }}&reply={{ thread.id }}">Antworten</a>
+			</div>
+		{% endif %}
+
+		{{ pagination|raw }}
+	<div class="cb"></div>
+</div>
+{% endif %}
+
+<table class="forum-post">
+{% for post in postings %}
+
+		<tr>
+			<td class="well">
+				<h4>{{ post.user_name }}</h4>
+
+				<!--
+				<span class="label label-primary">Administrator</span>
+				<span class="label label-primary">Devloper</span>
+				<div class="row hidden-xs">
+					<div class="col-lg-12">&nbsp;</div>
+					<img class="col-lg-8  col-lg-offset-2 img-circle img-responsive" alt="Kevin" src="http://gravatar.com/avatar/e3f5b172ba9a59a452516bfa6287f654?size=500">
+				</div>
+				-->
+			</td>
+
+			<td class="well" valign="top" style="text-align: left;">
+
+				{% if moderate or user.id == post.create_by %}
+					<div class="pull-right">
+						<div class="btn-group">
+							<button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle" type="button">
+								<span class="icon-cog"></span>
+							</button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li><a href="{{ self }}&edit={{ post.id }}">Edit</a></li>
+								<li><a href="{{ self }}&delete={{ post.id }}">Delete</a></li>
+							</ul>
+						</div>
+					</div>
+				{% endif %}
+
+				<p>{{ post.text_raw|e|markdown|bbcode|raw }}</p>
+				<p><small>{{ post.create_date|date }}</small></p>
+			</td>
+		</tr>
+{% endfor %}
+</table>
+
+{% if reply or pagination %}
+	<div class="well" style="text-align: left">
+		{% if reply %}
+			<div class="pull-right">
+				<a class="btn" href="{{ self }}&reply={{ thread.id }}">Antworten</a>
+			</div>
+		{% endif %}
+
+		{{ pagination|raw }}
+	</div>
+{% endif %}

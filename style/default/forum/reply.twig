@@ -1,0 +1,48 @@
+<ol class="breadcrumb">
+	<li><a href="{{ self }}">Forum</a></li>
+	{% for board in breadcrumb %}
+		<li><span class="divider">/</span> <a href="{{ self }}&board={{ board.id }}">{{ board.name }}</a></li>
+	{% endfor %}
+
+	{% if thread %}
+		<li><span class="divider">/</span> <a href="{{ self }}&thread={{ thread.id }}">{{ thread.title }}</a></li>
+	{% else %}
+		<li><span class="divider">/</span> Neues Thema erstellen</li>
+	{% endif %}
+</ol>
+
+<div class="well">
+	<form role="form" class="form-horizontal" action="{{ action }}" method="post">
+		<div class="control-group">
+			<label class="control-label" for="inputTitle">Titel</label>
+			<div class="controls">
+				<input type="text" placeholder="Titel" name="title" id="inputTitle" class="form-control input-xxlarge" value="{{ title }}">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<div class="btn-group">
+					<button class="btn btn-default" type="button">
+						<i class="icon-bold"></i>
+					</button><button class="btn btn-default" type="button">
+						<i class="icon-italic"></i>
+					</button><button class="btn btn-default" type="button">
+						<i class="icon-globe"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputText">Text</label>
+			<div class="controls">
+				<textarea id="inputText" rows="8" name="text" class="form-control input-xxlarge">{{ text }}</textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-primary" type="submit">Posten</button>
+				<button class="btn btn-default" type="reset">Verwerfen</button>
+			</div>
+		</div>
+	</form>
+</div>

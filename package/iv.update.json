@@ -1,0 +1,13 @@
+{
+	"name": "Update System",
+	"description": "Grundlegende Funktionen für das Update System.",
+	"autor": "Master IV",
+
+	"moduls": [
+		{
+			"file": "iv.packages",
+			"icon": "package.png",
+			"name": "Paketverwaltung"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+<div class="box" style="max-width: 1000px;">
+	<h2>
+		<a href="{{ MODUL_SELF }}&manage" class="pull-right btn {% if children|length > 20 %}btn-danger{% endif %}" style="margin-top: 4px;">Verwalten</a>
+		{{ name }}</h2>
+
+    <div class="nav-wrapper">
+	{% for subpoint in children %}
+		<a class="icon" href="{{ IV_SELF }}modul={{ subpoint.file }}">
+			<img src="assets/large/{{ subpoint.icon }}" alt="{{ subpoint.name }}" border="0">
+			<br>{{ subpoint.name }}
+		</a>
+	{% endfor %}
+	</div>
+</div>
