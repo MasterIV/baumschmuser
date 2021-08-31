@@ -308,4 +308,8 @@ th {
 	.raid h3 {
 		font-size: 16px;
 	}
+
+	.raid > .signups > span {
+		margin-right: 12px;
+	}
 }
